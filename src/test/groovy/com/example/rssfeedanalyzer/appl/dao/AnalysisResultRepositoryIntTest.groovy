@@ -10,8 +10,6 @@ import javax.transaction.Transactional
 
 /**
  * User: pelesic
- * Date: 27.12.21
- * Time: 15:18
  */
 @Transactional
 class AnalysisResultRepositoryIntTest extends IntegrationSpecification {

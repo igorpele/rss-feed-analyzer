@@ -44,4 +44,10 @@ public class AnalysisResult extends EntityBase {
         setHotTopicList(hotTopicList);
         return this;
     }
+
+    @Transient
+    public void addHotTopic(HotTopic hotTopic){
+        hotTopic.setAnalysisResult(this);
+        this.getHotTopicList().add(hotTopic);
+    }
 }

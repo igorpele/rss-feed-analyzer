@@ -76,6 +76,12 @@ public class HotTopic extends EntityBase{
         return this;
     }
 
+    @Transient
+    public void addFeedItem(FeedItem feedItem){
+        feedItem.setHotTopic(this);
+        this.getItemsList().add(feedItem);
+    }
+
 
 
 }
