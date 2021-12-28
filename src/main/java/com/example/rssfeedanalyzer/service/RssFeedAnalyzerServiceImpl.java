@@ -1,19 +1,18 @@
 package com.example.rssfeedanalyzer.service;
 
-import com.example.rssfeedanalyzer.RssFeedAnalyzerException;
-import com.example.rssfeedanalyzer.appl.dao.AnalysisResultRepository;
 import com.example.rssfeedanalyzer.appl.analyze.FeedCollectionAnalyzer;
+import com.example.rssfeedanalyzer.appl.dao.AnalysisResultRepository;
 import com.example.rssfeedanalyzer.appl.domain.AnalysisResult;
 import com.example.rssfeedanalyzer.service.dto.AnalysisResultDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -41,11 +40,9 @@ public class RssFeedAnalyzerServiceImpl implements RssFeedAnalyzerService {
         this.transactionTemplate = transactionTemplate;
     }
 
-    @Async
+    @Async("asyncExecutor")
     @Override
     public CompletableFuture<String> analyzeFeeds(List<String> urls) {
-        CompletableFuture<String> result = new CompletableFuture<>();
-        result.completeAsync(() -> {
             LOGGER.info("Analyzing RSS Feeds {}", urls);
             String resultId = UUID.randomUUID().toString();
             AnalysisResult analysisResult = feedCollectionAnalyzer.analyzeFeeds(urls);
@@ -54,16 +51,12 @@ public class RssFeedAnalyzerServiceImpl implements RssFeedAnalyzerService {
                   analysisResultRepository.save(analysisResult);
                   action.flush();
             });
-            return resultId;
-        }).exceptionally(throwable -> {
-            LOGGER.warn("Exception {}", throwable.getMessage());
-            throw ((RssFeedAnalyzerException)throwable);
-        });
 
-        return result;
+        return CompletableFuture.completedFuture(resultId);
     }
 
     @Override
+    @Transactional
     public AnalysisResultDto getAnalysisResult(String resultId) {
         Optional<AnalysisResult> analysisResult = analysisResultRepository.findByResultId(resultId);
         if (analysisResult.isPresent()){

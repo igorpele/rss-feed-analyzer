@@ -1,6 +1,5 @@
 package com.example.rssfeedanalyzer.appl.analyze;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

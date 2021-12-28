@@ -1,6 +1,7 @@
 package com.example.rssfeedanalyzer.config;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -23,10 +24,10 @@ public class RssFeedAnalyzerConfig {
     }
 
     @Bean
-    RestTemplate restTemplate(){
+    RestTemplate restTemplate(@Value("${restTemplateTimeoutMillis:5000}") int timeout){
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(5000);
-        requestFactory.setReadTimeout(5000);
+        requestFactory.setConnectTimeout(timeout);
+        requestFactory.setReadTimeout(timeout);
 
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 9999));
         requestFactory.setProxy(proxy);
@@ -36,12 +37,11 @@ public class RssFeedAnalyzerConfig {
 
 
 
-
-    @Bean
+    @Bean(name = "asyncExecutor")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(50);
-        executor.setMaxPoolSize(100);
+        executor.setCorePoolSize(100);
+        executor.setMaxPoolSize(500);
         executor.setQueueCapacity(500);
         executor.setThreadNamePrefix("task_pool-");
         return executor;
