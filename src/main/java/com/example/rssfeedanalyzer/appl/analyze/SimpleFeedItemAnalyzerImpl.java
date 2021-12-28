@@ -1,15 +1,14 @@
 package com.example.rssfeedanalyzer.appl.analyze;
 
 import com.rometools.rome.feed.synd.SyndEntry;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,7 @@ public class SimpleFeedItemAnalyzerImpl implements FeedItemAnalyzer {
     }
 
     @Override
+    @Cacheable(cacheNames = "feeditems", key = "#title")
     public AnalyzedFeedItem analyze(SyndEntry entry) {
         if (LOGGER.isDebugEnabled()){
             LOGGER.debug("title {}", entry.getTitle());
