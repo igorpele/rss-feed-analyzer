@@ -8,8 +8,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.concurrent.Executor;
 
 /**
@@ -29,12 +27,8 @@ public class RssFeedAnalyzerConfig {
         requestFactory.setConnectTimeout(timeout);
         requestFactory.setReadTimeout(timeout);
 
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 9999));
-        requestFactory.setProxy(proxy);
-
         return new RestTemplate(requestFactory);
     }
-
 
 
     @Bean(name = "asyncExecutor")

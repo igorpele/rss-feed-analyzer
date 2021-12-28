@@ -26,7 +26,7 @@ public class SimpleFeedItemAnalyzerImpl implements FeedItemAnalyzer {
     }
 
     @Override
-    @Cacheable(cacheNames = "feeditems", key = "#title")
+    @Cacheable(cacheNames = "feeditems", key = "#entry.title")
     public AnalyzedFeedItem analyze(SyndEntry entry) {
         if (LOGGER.isDebugEnabled()){
             LOGGER.debug("title {}", entry.getTitle());
