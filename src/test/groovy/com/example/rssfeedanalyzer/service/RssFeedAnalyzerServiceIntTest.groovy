@@ -90,7 +90,7 @@ class RssFeedAnalyzerServiceIntTest extends IntegrationSpecification {
         feedAnalyzerService.getAnalysisResult("noresult")
 
         then:
-        thrown(RssFeedAnalyzerException)
+        thrown(IllegalArgumentException)
     }
 
     String goodResponse(){

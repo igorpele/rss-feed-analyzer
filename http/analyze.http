@@ -2,6 +2,15 @@ POST http://localhost:8080/analyze/new
 Content-Type: application/json
 
 [
+  "https://news.google.com/rss?cf=all&hl=en-US&pz=1&gl=US&ceid=US:en"
+]
+
+###
+
+POST http://localhost:8080/analyze/new
+Content-Type: application/json
+
+[
   "https://news.google.com/rss?cf=all&hl=en-US&pz=1&gl=US&ceid=US:en",
   "https://www.yahoo.com/news/rss",
   "https://rss.politico.com/healthcare.xml",

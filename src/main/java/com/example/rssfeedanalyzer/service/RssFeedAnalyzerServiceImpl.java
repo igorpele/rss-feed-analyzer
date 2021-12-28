@@ -55,6 +55,9 @@ public class RssFeedAnalyzerServiceImpl implements RssFeedAnalyzerService {
                   action.flush();
             });
             return resultId;
+        }).exceptionally(throwable -> {
+            LOGGER.warn("Exception {}", throwable.getMessage());
+            throw ((RssFeedAnalyzerException)throwable);
         });
 
         return result;
@@ -67,6 +70,6 @@ public class RssFeedAnalyzerServiceImpl implements RssFeedAnalyzerService {
             AnalysisResultDto result = modelMapper.map(analysisResult.get(), AnalysisResultDto.class);
             return result;
         }
-        throw new RssFeedAnalyzerException("Result not found", HttpStatus.NOT_FOUND);
+        throw new IllegalArgumentException("Result " + resultId + " not found");
     }
 }
