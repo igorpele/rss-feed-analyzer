@@ -17,6 +17,10 @@
 		<java.version>11</java.version>
 		<gmaven-plugin.version>1.5</gmaven-plugin.version>
 		<groovy.version>3.0.9</groovy.version>
+        <spock.version>2.0-groovy-3.0</spock.version>
+		<jupiter.version>5.6.2</jupiter.version>
+		<gmavenplus-plugin.version>1.9.0</gmavenplus-plugin.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -60,7 +64,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
@@ -68,14 +79,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<version>2.0-groovy-3.0</version>
-			<scope>test</scope>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>${groovy.version}</version>
+			<type>pom</type>
 			<exclusions>
 				<exclusion>
-					<groupId>org.codehaus.groovy</groupId>
-					<artifactId>groovy-all</artifactId>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-testng</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -83,27 +94,46 @@
 		<dependency>
 			<groupId>org.spockframework</groupId>
 			<artifactId>spock-spring</artifactId>
-			<version>2.0-groovy-3.0</version>
+			<version>${spock.version}</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.codehaus.groovy</groupId>
-					<artifactId>groovy-all</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>${groovy.version}</version>
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-core</artifactId>
+			<version>${spock.version}</version>
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<!-- Required only to use JUnit 4 @Rule/@ClassRule -->
+			<groupId>org.spockframework</groupId>
+			<artifactId>spock-junit4</artifactId>
+			<version>${spock.version}</version>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-	</dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -112,40 +142,41 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.codehaus.gmaven</groupId>
-				<artifactId>gmaven-plugin</artifactId>
-				<version>${gmaven-plugin.version}</version>
-				<configuration>
-					<providerSelection>2.0</providerSelection>
-					<source/>
-				</configuration>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>1.13.1</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>testCompile</goal>
+							<goal>compile</goal>
+							<goal>compileTests</goal>
 						</goals>
 					</execution>
 				</executions>
 				<dependencies>
 					<dependency>
-						<groupId>org.codehaus.gmaven.runtime</groupId>
-						<artifactId>gmaven-runtime-2.0</artifactId>
-						<version>${gmaven-plugin.version}</version>
-						<exclusions>
-							<exclusion>
-								<groupId>org.codehaus.groovy</groupId>
-								<artifactId>groovy-all</artifactId>
-							</exclusion>
-						</exclusions>
-					</dependency>
-					<dependency>
 						<groupId>org.codehaus.groovy</groupId>
 						<artifactId>groovy-all</artifactId>
 						<version>${groovy.version}</version>
+						<scope>runtime</scope>
+						<type>pom</type>
 					</dependency>
 				</dependencies>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+						<include>**/*Spec.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
 		</plugins>
+
 	</build>
 
 </project>

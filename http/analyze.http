@@ -1,0 +1,32 @@
+POST http://localhost:8080/analyze/new
+Content-Type: application/json
+
+[
+  "https://news.google.com/rss?cf=all&hl=en-US&pz=1&gl=US&ceid=US:en",
+  "https://www.yahoo.com/news/rss",
+  "https://rss.politico.com/healthcare.xml",
+  "https://www.theguardian.com/us/rss"
+  
+]
+> {%
+    client.global.set("resultId", response.body);
+%}
+
+###
+POST http://localhost:8080/analyze/new
+Content-Type: application/json
+
+[
+  "http://www.sportingnews.com/us/rss",
+  "https://www.sportsnet.ca/feed/",
+  "https://www.espn.com/espn/rss/news"
+]
+> {%
+    client.global.set("resultId", response.body);
+%}
+
+
+
+###
+GET http://localhost:8080/frequency/{{resultId}}
+

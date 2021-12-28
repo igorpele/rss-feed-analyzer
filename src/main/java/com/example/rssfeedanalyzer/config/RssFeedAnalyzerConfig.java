@@ -25,8 +25,8 @@ public class RssFeedAnalyzerConfig {
     @Bean
     RestTemplate restTemplate(){
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setConnectTimeout(2000);
-        requestFactory.setReadTimeout(2000);
+        requestFactory.setConnectTimeout(5000);
+        requestFactory.setReadTimeout(5000);
 
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 9999));
         requestFactory.setProxy(proxy);

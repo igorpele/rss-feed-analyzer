@@ -37,10 +37,12 @@ public class RssFeedRetrieverImpl implements RssFeedRetriever {
                 try {
                     return input.build(new XmlReader(response.getBody()));
                 } catch (Exception e) {
+                    LOGGER.warn("RSS Parsing failed for {} due to {}", url, e.getMessage());
                     throw new RssFeedRetrievingException("Parsing RSS feed failed", e);
                 }
             });
         } catch (RestClientException e) {
+            LOGGER.warn("RestTemplate connection failed for {} due to {}", url, e.getMessage());
             throw new RssFeedRetrievingException("Retrieving RSS feed failed", e);
         }
         return result;

@@ -4,6 +4,7 @@ import com.example.rssfeedanalyzer.IntegrationSpecification
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureMockRestServiceServer
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.client.MockRestServiceServer
 import org.springframework.test.web.client.match.MockRestRequestMatchers
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate
 /**
  * User: pelesic
  */
+@SpringBootTest
 @AutoConfigureWebClient
 @AutoConfigureMockRestServiceServer
 class RssFeedRetrieverImplTest extends IntegrationSpecification {
