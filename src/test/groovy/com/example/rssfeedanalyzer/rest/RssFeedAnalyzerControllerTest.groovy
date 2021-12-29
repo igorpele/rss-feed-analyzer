@@ -14,7 +14,7 @@ import spock.lang.Specification
  * User: pelesic
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class RssFeedAnalzerControllerTest extends Specification {
+class RssFeedAnalyzerControllerTest extends Specification {
 
     @LocalServerPort
     int port;

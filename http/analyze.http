@@ -34,6 +34,18 @@ Content-Type: application/json
     client.global.set("resultId", response.body);
 %}
 
+###
+POST http://localhost:8080/analyze/new
+Content-Type: application/json
+
+[
+  "https://www.technologyreview.com/feed/",
+  "https://readwrite.com/feed/?x=1"
+]
+> {%
+    client.global.set("resultId", response.body);
+%}
+
 
 
 ###

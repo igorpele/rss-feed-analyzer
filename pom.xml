@@ -122,14 +122,6 @@
 		</dependency>
 
 		<dependency>
-			<!-- Required only to use JUnit 4 @Rule/@ClassRule -->
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-junit4</artifactId>
-			<version>${spock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>${jupiter.version}</version>
@@ -149,6 +141,13 @@
 			<version>${jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		</dependencies>
 	<build>
 		<plugins>

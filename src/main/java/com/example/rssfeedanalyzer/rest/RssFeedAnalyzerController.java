@@ -19,14 +19,14 @@ import java.util.concurrent.CompletionException;
  * User: pelesic
  */
 @RestController
-public class RssFeedAnalzerController {
+public class RssFeedAnalyzerController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RssFeedAnalzerController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RssFeedAnalyzerController.class);
 
     private RssFeedAnalyzerService rssFeedAnalyzerService;
 
     @Autowired
-    public RssFeedAnalzerController(RssFeedAnalyzerService rssFeedAnalyzerService) {
+    public RssFeedAnalyzerController(RssFeedAnalyzerService rssFeedAnalyzerService) {
         this.rssFeedAnalyzerService = rssFeedAnalyzerService;
     }
 
