@@ -17,7 +17,7 @@ class AnalysisResultRepositoryIntTest extends IntegrationSpecification {
     @Autowired
     AnalysisResultRepository repository
 
-    def "::get result"() {
+    def "::test get result"() {
         when:
         def result = repository.findByResultId("result1")
 
@@ -27,7 +27,7 @@ class AnalysisResultRepositoryIntTest extends IntegrationSpecification {
         result.get().hotTopicList*.keyword == ["keyword2", "keyword1"]
     }
 
-    def "::save analysis result"() {
+    def "::test save analysis result"() {
         given:
         def feedItem1 = new FeedItem().withLink("link12").withTitle("title12")
         def feedItem2 = new FeedItem().withLink("link22").withTitle("title22")

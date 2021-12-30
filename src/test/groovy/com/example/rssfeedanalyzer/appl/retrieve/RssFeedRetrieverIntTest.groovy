@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate
 @SpringBootTest
 @AutoConfigureWebClient
 @AutoConfigureMockRestServiceServer
-class RssFeedRetrieverImplTest extends IntegrationSpecification {
+class RssFeedRetrieverIntTest extends IntegrationSpecification {
 
     RssFeedRetriever retriever
 
@@ -37,7 +37,7 @@ class RssFeedRetrieverImplTest extends IntegrationSpecification {
         mockRestServiceServer.verify()
     }
 
-    def "::get feed items success"() {
+    def "::test get feed items success"() {
         given:
         mockRestServiceServer
                 .expect(MockRestRequestMatchers.requestTo("/feed1"))
@@ -53,7 +53,7 @@ class RssFeedRetrieverImplTest extends IntegrationSpecification {
     }
 
 
-    def "::get feed items http connection exception"() {
+    def "::test get feed items http connection exception"() {
         given:
         mockRestServiceServer
                 .expect(MockRestRequestMatchers.requestTo("/feed1"))
@@ -67,7 +67,7 @@ class RssFeedRetrieverImplTest extends IntegrationSpecification {
 
     }
 
-    def "::get feed items parsing exception"() {
+    def "::test get feed items parsing exception"() {
         given:
         mockRestServiceServer
                 .expect(MockRestRequestMatchers.requestTo("/feed1"))

@@ -6,6 +6,7 @@ import com.rometools.rome.io.XmlReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
@@ -27,6 +28,7 @@ public class RssFeedRetrieverImpl implements RssFeedRetriever {
     }
 
     @Override
+    @Cacheable(cacheNames = "restfeed")
     public SyndFeed retrieveFeed(String url) throws RssFeedRetrievingException {
         LOGGER.info("Retrieve RSS feed from {}", url);
         SyndFeed result = null;

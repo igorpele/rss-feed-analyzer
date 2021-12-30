@@ -8,11 +8,13 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 /**
  * User: pelesic
  */
+@ActiveProfiles("integration")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class RssFeedAnalyzerControllerTest extends Specification {
 
