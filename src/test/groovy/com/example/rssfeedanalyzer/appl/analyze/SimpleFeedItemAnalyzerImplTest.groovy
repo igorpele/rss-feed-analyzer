@@ -20,7 +20,7 @@ class SimpleFeedItemAnalyzerImplTest extends Specification {
         def analyzed = analyzer.analyze(entry)
 
         then:
-        analyzed.keyWords == ["Hamilton", "Verstappen", "ESPNs", "F1", "driver", "year"]
+        analyzed.keyWords == ["Hamilton", "Verstappen", "ESPNs", "driver", "year"]
     }
 
     def "::test analyzing remove source within text"() {
@@ -37,7 +37,7 @@ class SimpleFeedItemAnalyzerImplTest extends Specification {
         def analyzed = analyzer.analyze(entry)
 
         then:
-        analyzed.keyWords == ["Quite", "hopeful", "Abortion", "decision", "reshape", "reproductive", "health"]
+        analyzed.keyWords == ["Quite", "hopeful", "Abortion", "pill", "decision", "reshape", "reproductive", "health", "war"]
     }
 
 

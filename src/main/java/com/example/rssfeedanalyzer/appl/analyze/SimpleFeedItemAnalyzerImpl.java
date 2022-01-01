@@ -9,7 +9,9 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -19,10 +21,14 @@ import java.util.stream.Collectors;
 public class SimpleFeedItemAnalyzerImpl implements FeedItemAnalyzer {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleFeedItemAnalyzerImpl.class);
 
-    private String stopWords;
+    private TreeSet<String> stopWordSet ;
 
     public SimpleFeedItemAnalyzerImpl() throws IOException {
-        this.stopWords = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:en_stopwords.txt").toPath()));
+        Path path = ResourceUtils.getFile("classpath:en_stopwords.txt").toPath();
+        this.stopWordSet = Files.readAllLines(path).stream()
+                .collect(Collectors.toCollection(() -> new TreeSet<>()));
+
+
     }
 
     @Override
@@ -40,7 +46,8 @@ public class SimpleFeedItemAnalyzerImpl implements FeedItemAnalyzer {
         List<String> replacedList = List.of(replace.split(" "));
         List<String> result = replacedList.stream()
                 .map(str -> str.replaceAll("[^\\w\\s]", "").trim())
-                .filter(str -> !stopWords.contains(str.toLowerCase()))
+                .filter(str -> !stopWordSet.contains(str.toLowerCase()))
+                .filter(str -> str.length() > 2)
                 .collect(Collectors.toList());
 
         if (LOGGER.isDebugEnabled()){
