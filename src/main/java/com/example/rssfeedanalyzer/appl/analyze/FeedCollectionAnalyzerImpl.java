@@ -51,7 +51,6 @@ public class FeedCollectionAnalyzerImpl implements FeedCollectionAnalyzer {
             List<Map.Entry<String, List<AnalyzedFeedItem>>> sortedList = sortFrequencyMap(aggregateMap(frequencyMap));
             return mapResult(sortedList);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RssFeedAnalyzerException("Could not analyze feeds due to " + e.getMessage());
         }
 
